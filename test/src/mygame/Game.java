@@ -83,7 +83,7 @@ public class Game {
             new Vector3f(0,0,1).mult(5));
         
         cam.lookAt(
-		    new Vector3f(0,0,0),
-            new Vector3f(0,0,-1);
+            new Vector3f(0,0,0),
+            new Vector3f(0,0,-1));
     }
 }
