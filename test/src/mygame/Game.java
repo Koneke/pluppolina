@@ -72,7 +72,7 @@ public class Game {
             .getGeometry()
         );
         
-        
+        rootNode.attachChild(rootNode);
     }
     
     float t = 0;
