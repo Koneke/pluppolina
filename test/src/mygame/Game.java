@@ -80,11 +80,10 @@ public class Game {
     public void Update(float tpf) {
         t += tpf;
         plupps.get(0).geometry.geometry.setLocalTranslation(
-            //new Vector3f(FastMath.sin(t*4),0,FastMath.cos(t*4)).mult(5));
-            new Vector3f(1,0,0).mult(5));
+            new Vector3f(0,0,1).mult(5));
         
         cam.lookAt(
-                plupps.get(0).geometry.geometry.getLocalTranslation(),
-                Vector3f.UNIT_Z);
+		    new Vector3f(0,0,0),
+            new Vector3f(0,0,-1);
     }
 }
