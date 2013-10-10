@@ -7,6 +7,7 @@ import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
+import com.jme3.scene.Spatial;
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.List;
@@ -56,12 +57,12 @@ public class Game {
             assetManager.loadTexture("Textures/Penguins.jpg")
         );
         
-        rootNode.attachChild(
+        /*rootNode.attachChild(
             (new BoxGeomWrapper())
                 .setGeometry(Helper.createCube(10,0.1f,10,"alfred"))
                 .setMaterial(mat)
                 .getGeometry()
-        );
+        );*/
         
         Plupp p;
         
@@ -72,7 +73,10 @@ public class Game {
             .getGeometry()
         );
         
+        Spatial arena = assetManager.loadModel("Models/alpha_arena.obj");
+        arena.setMaterial(mat);
         
+        rootNode.attachChild(arena);
     }
     
     float t = 0;
