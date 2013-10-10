@@ -46,9 +46,6 @@ public class Main extends SimpleApplication {
                 String target = cr.getGeometry().getName();
                 Vector3f pt = cr.getContactPoint();
                 float dist = cr.getDistance();
-		
-            	/*System.out.println(target+" at "+pt+
-                    ", "+dist+" WU away.");*/
                 
                 game.applyShockWave(pt);
             }
