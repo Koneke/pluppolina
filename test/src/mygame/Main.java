@@ -3,6 +3,7 @@ package mygame;
 import com.jme3.app.SimpleApplication;
 import com.jme3.collision.CollisionResult;
 import com.jme3.collision.CollisionResults;
+import com.jme3.input.InputManager;
 import com.jme3.input.MouseInput;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.MouseButtonTrigger;
@@ -21,46 +22,21 @@ import com.jme3.util.SkyFactory;
  */
 
 public class Main extends SimpleApplication {
-    public ActionListener actionListener = new ActionListener() {
-        public void onAction(String name, boolean value, float tpf) {
-            if (name.equals("pick target")) {
-                if (!value) { return; }
-                
-                CollisionResults results = new CollisionResults();
-                
-                Vector2f click2d = inputManager.getCursorPosition();
-                Vector3f click3d = cam.getWorldCoordinates(
-                    new Vector2f(click2d.x, click2d.y), 0f).clone();
-        
-                Vector3f dir = cam.getWorldCoordinates(
-                    new Vector2f(click2d.x, click2d.y), 1f).normalizeLocal();
-                
-                Ray ray = new Ray(click3d, dir);
-                
-                gameNode.collideWith(ray, results);
-                
-                if(results.size() < 1) { return; }
-                
-                CollisionResult cr = results.getClosestCollision();
-		
-                String target = cr.getGeometry().getName();
-                Vector3f pt = cr.getContactPoint();
-                float dist = cr.getDistance();
-                
-                game.applyShockWave(pt);
-            }
-        };
-    };
+    public static Main app;
     
     public static void main(String[] args) {
-        Main app = new Main();
+        app = new Main();
         app.start();
+    }
+    
+    public InputManager getInputManager() {
+        return inputManager;
     }
     
     private void setup() {
         this.flyCam.setEnabled(false);
         this.cam.setLocation(new Vector3f(0,1,0).mult(30));
-        this.cam.lookAt(new Vector3f(0,0,0),new Vector3f(-1,0,0));
+        this.cam.lookAt(new Vector3f(0,0,0),new Vector3f(0,0,-1));
 
         Spatial skybox = SkyFactory.createSky(
             assetManager, "Textures/Penguins.jpg", true);
@@ -85,7 +61,7 @@ public class Main extends SimpleApplication {
         
         inputManager.addMapping(
             "pick target", new MouseButtonTrigger(MouseInput.BUTTON_LEFT));
-        inputManager.addListener(actionListener, "pick target");
+        inputManager.addListener(game.actionListener, "pick target");
     }
     
     @Override
