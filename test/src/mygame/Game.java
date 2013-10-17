@@ -36,14 +36,15 @@ public class Game {
     public Game() {
     }
     
-        public ActionListener actionListener = new ActionListener() {
+    public ActionListener actionListener = new ActionListener() {
         public void onAction(String name, boolean value, float tpf) {
             if (name.equals("pick target")) {
                 if (!value) { return; }
                 
                 CollisionResults results = new CollisionResults();
                 
-                Vector2f click2d = Main.app.getInputManager().getCursorPosition();
+                Vector2f click2d = Main.app.getInputManager()
+                    .getCursorPosition();
                 Vector3f click3d = cam.getWorldCoordinates(
                     new Vector2f(click2d.x, click2d.y), 0f).clone();
         
@@ -68,7 +69,6 @@ public class Game {
     };
     
     public void applyShockWave(Vector3f vec) {
-        //for(Plupp p : plupps) {
         for(int i = 0;i<plupps.size();i++) {
             Plupp p = plupps.get(i);
             
@@ -76,37 +76,28 @@ public class Game {
             float distance = ppos.distance(vec);
 
             //the following are merely test values
-            float maxDistance = 2;
-            float maxSpeed = 6000; //in ups
+            float maxDistance = 4;
             
             if(distance>maxDistance) continue;
             if(distance<-maxDistance) continue;
             
-            //float speed = maxSpeed - maxSpeed*(distance/maxDistance);
-            float speed = (FastMath.abs(maxDistance-distance))*maxSpeed;
+            float speed = (FastMath.abs(maxDistance-distance))*Plupp.MaxSpeed;
 
-            //get direction between shock point and plupp
-            Vector3f direction =
-                    p.geometry.geometry.getLocalTranslation().subtract(vec).
-                    normalize();
-            
             Vector3f pos = p.geometry.geometry.getLocalTranslation();
             Vector2f dir = new Vector2f(pos.x-vec.x, pos.z-vec.z).mult(speed);
             
-            //set velocity to that direction times the previously calculated speed
-            //note: this disregards any current velocity on the plupp, we might want to
-            //consider rewriting this bit because of that. the current version is just
+            //set velocity to that direction times the previously
+            //calculated speed
+            //note: this disregards any current velocity on the
+            //plupp, we might want to
+            //consider rewriting this bit because of that.
+            //the current version is just
             //for testing purposes.
-            p.velocity = direction.mult(speed);
-            p.velocity = new Vector3f(dir.x, 0, dir.y);
-            p.velocity.y = 0;
-            System.out.println(p.velocity);
 
-            //debug text
-            System.out.println(distance);
-            
+            p.ApplyForce(dir);
+
             plupps.set(i, p);
-        }	
+        }
     }
     
     public Plupp createPlupp() {
@@ -128,14 +119,13 @@ public class Game {
             assetManager.loadTexture("Textures/Penguins.jpg")
         );
         
-        gameNode = new Node();
-        
-        gameNode.attachChild(
+        (gameNode = new Node()).attachChild(
             (new BoxGeomWrapper())
                 .setGeometry(Helper.createCube(10,0.1f,10,"alfred"))
                 .setMaterial(mat)
                 .getGeometry()
         );
+        
         rootNode.attachChild(gameNode);
         
         Plupp p;
@@ -144,6 +134,12 @@ public class Game {
             ((p = createPlupp()).geometry = new BoxGeomWrapper()
                 .setGeometry(Helper.createCube(1,1,1,"plupp"))
                 .setMaterial(mat))
+            .getGeometry()
+        );
+        rootNode.attachChild(
+            ((p = createPlupp()).geometry = new BoxGeomWrapper()
+                .setGeometry(Helper.createCube(1,1,1,"plupp"))
+                .setMaterial(mat)).move(new Vector3f(2,0,0))
             .getGeometry()
         );
         
@@ -159,8 +155,10 @@ public class Game {
         t += tpf;
 
         for(Plupp p : plupps) {
-            //p.velocity = new Vector3f(500,0,0);
-            p.geometry.move(p.velocity.mult(tpf/1000f));
+            Vector2f movement = p.velocity.mult(tpf/1000f);
+            float x = movement.x;
+            float z = movement.y;
+            p.geometry.move(new Vector3f(x, 0, z));
         }
     }
 }
