@@ -52,16 +52,12 @@ public class Game {
                     new Vector2f(click2d.x, click2d.y), 1f).normalizeLocal();
                 
                 Ray ray = new Ray(click3d, dir);
-                
                 gameNode.collideWith(ray, results);
-                
                 if(results.size() < 1) { return; }
                 
                 CollisionResult cr = results.getClosestCollision();
-		
-                String target = cr.getGeometry().getName();
+                
                 Vector3f pt = cr.getContactPoint();
-                float dist = cr.getDistance();
                 
                 applyShockWave(pt);
             }
@@ -86,14 +82,6 @@ public class Game {
             Vector3f pos = p.geometry.geometry.getLocalTranslation();
             Vector2f dir = new Vector2f(pos.x-vec.x, pos.z-vec.z).mult(speed);
             
-            //set velocity to that direction times the previously
-            //calculated speed
-            //note: this disregards any current velocity on the
-            //plupp, we might want to
-            //consider rewriting this bit because of that.
-            //the current version is just
-            //for testing purposes.
-
             p.ApplyForce(dir);
 
             plupps.set(i, p);
@@ -142,18 +130,15 @@ public class Game {
                 .setMaterial(mat)).move(new Vector3f(2,0,0))
             .getGeometry()
         );
-        
-        //Spatial arena = assetManager.loadModel("Models/alpha_arena.obj");
-        //arena.setMaterial(mat);
-        
-        //rootNode.attachChild(arena);
     }
     
     float t = 0;
     
     public void Update(float tpf) {
-        t += tpf;
-
+        
+        //before moving, calculate where they are all going to be and handle
+        //collisions beforehand.
+        
         for(Plupp p : plupps) {
             Vector2f movement = p.velocity.mult(tpf/1000f);
             float x = movement.x;

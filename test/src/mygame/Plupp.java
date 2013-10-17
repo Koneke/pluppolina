@@ -7,6 +7,7 @@ public class Plupp {
     Vector2f velocity;
 
     public static float MaxSpeed = 5000;
+    public static float Radius = 1;
 
     public Plupp() {
         velocity = Vector2f.ZERO;
@@ -14,9 +15,11 @@ public class Plupp {
 
     public void ApplyForce(Vector2f force) {
         Vector2f resultant = velocity.add(force);
+        
         if(resultant.length()>MaxSpeed) {
             resultant = resultant.normalize().mult(MaxSpeed);
         }
+        
         velocity = resultant;
     }
 }
