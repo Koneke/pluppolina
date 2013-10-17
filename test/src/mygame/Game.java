@@ -1,6 +1,7 @@
 package mygame;
 
 import com.jme3.asset.AssetManager;
+import com.jme3.light.DirectionalLight;
 import com.jme3.material.Material;
 import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
@@ -16,6 +17,8 @@ public class Game {
     AssetManager assetManager;
     Node rootNode;
     Camera cam;
+
+    DirectionalLight sun;
     
     static Geometry gamePlane;
     Dictionary<String, Material> materials;
@@ -50,11 +53,11 @@ public class Game {
         
         Material mat = new Material(
             assetManager,
-            "Common/MatDefs/Misc/Unshaded.j3md"
+            "Common/MatDefs/Light/Lighting.j3md"
         );
         
-        mat.setTexture("ColorMap",
-            assetManager.loadTexture("Textures/Penguins.jpg")
+        mat.setTexture("DiffuseMap",
+            assetManager.loadTexture("Textures/BlueSmoke.jpg")
         );
         
         /*rootNode.attachChild(
@@ -89,5 +92,7 @@ public class Game {
         cam.lookAt(
             new Vector3f(0,0,0),
             new Vector3f(0,0,-1));
+        
+        sun.setDirection(new Vector3f(0f,-1f,-4f+t*1f).normalizeLocal());
     }
 }

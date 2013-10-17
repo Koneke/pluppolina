@@ -6,6 +6,8 @@ import com.jme3.collision.CollisionResults;
 import com.jme3.input.MouseInput;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.MouseButtonTrigger;
+import com.jme3.light.DirectionalLight;
+import com.jme3.math.ColorRGBA;
 import com.jme3.math.FastMath;
 import com.jme3.math.Ray;
 import com.jme3.math.Vector2f;
@@ -58,10 +60,11 @@ public class Main extends SimpleApplication {
     }
     
     private void setup() {
-        this.flyCam.setEnabled(false);
-        this.cam.setLocation(new Vector3f(0,1,0).mult(30));
+        this.flyCam.setEnabled(true);
+        this.flyCam.setMoveSpeed(100);
+        this.cam.setLocation(new Vector3f(0,0.85f,0).mult(30));
         this.cam.lookAt(new Vector3f(0,0,0),new Vector3f(-1,0,0));
-
+        
         Spatial skybox = SkyFactory.createSky(
             assetManager, "Textures/Penguins.jpg", true);
         skybox.move(0,-100,0);
@@ -81,7 +84,14 @@ public class Main extends SimpleApplication {
         game.rootNode = (gameNode = new Node());
         game.cam = this.cam;
         rootNode.attachChild(gameNode);
-        game.Start();
+        game.Start();        
+        
+        DirectionalLight sun = new DirectionalLight();
+        sun.setDirection(new Vector3f(0,-1,-2).normalizeLocal());
+        sun.setColor(ColorRGBA.Yellow);
+        rootNode.addLight(sun);
+        
+        game.sun = sun;
         
         inputManager.addMapping(
             "pick target", new MouseButtonTrigger(MouseInput.BUTTON_LEFT));
