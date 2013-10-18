@@ -6,7 +6,8 @@ public class Plupp {
     BoxGeomWrapper geometry;
     Vector2f velocity;
 
-    public static float MaxSpeed = 5000;
+    public static float PushStrength = 8000;
+    public static float MaxSpeed = 24000;
     public static float Radius = 1;
 
     public Plupp() {
@@ -14,7 +15,14 @@ public class Plupp {
     }
 
     public void ApplyForce(Vector2f force) {
-        Vector2f resultant = velocity.add(force);
+        Vector2f resultant;
+        
+        //resultant = velocity.add(force);
+        
+        //test version, halving current velocity first to see if it feels
+        //more responsive.
+        
+        resultant = velocity.mult(0.5f).add(force);
         
         if(resultant.length()>MaxSpeed) {
             resultant = resultant.normalize().mult(MaxSpeed);

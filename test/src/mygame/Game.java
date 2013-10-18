@@ -3,6 +3,7 @@ package mygame;
 import com.jme3.asset.AssetManager;
 import com.jme3.collision.CollisionResult;
 import com.jme3.collision.CollisionResults;
+import com.jme3.input.InputManager;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.material.Material;
 import com.jme3.math.FastMath;
@@ -12,28 +13,26 @@ import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
-import com.jme3.scene.Spatial;
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.List;
 
 public class Game {
+    public static Game game;
+    
     AssetManager assetManager;
     Node rootNode;
     Node gameNode;
+    InputManager inputManager;
     Camera cam;
     
-    static Geometry gamePlane;
     Dictionary<String, Material> materials;
     List<Plupp> plupps;
     
     public Material loadMaterial(String path) {
-        if(materials.get(path) != null) { return materials.get(path); }
-        return new Material(
-            assetManager, path);
-    }
-    
-    public Game() {
+        if(materials.get(path) == null) {
+            materials.put(path, new Material(assetManager, path)); }
+        return materials.get(path);
     }
     
     public ActionListener actionListener = new ActionListener() {
@@ -72,12 +71,14 @@ public class Game {
             float distance = ppos.distance(vec);
 
             //the following are merely test values
-            float maxDistance = 4;
+            float maxDistance = 5;
             
-            if(distance>maxDistance) continue;
-            if(distance<-maxDistance) continue;
+            if(FastMath.abs(
+                distance)>maxDistance) { continue; }
             
-            float speed = (FastMath.abs(maxDistance-distance))*Plupp.MaxSpeed;
+            float speed = 
+                Plupp.PushStrength-
+                (FastMath.abs(distance)/maxDistance)*Plupp.PushStrength;
 
             Vector3f pos = p.geometry.geometry.getLocalTranslation();
             Vector2f dir = new Vector2f(pos.x-vec.x, pos.z-vec.z).mult(speed);
