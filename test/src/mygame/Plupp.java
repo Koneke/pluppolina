@@ -35,7 +35,9 @@ public class Plupp {
     public void bounce() {
         //check if we've hit the wall, and bounce if so.
         //later: implement pluppbouncing here as well
+        
         Vector3f pos = geometry.geometry.getLocalTranslation();
+        
         if(pos.z>=10||pos.z<=-10) {
             velocity.y *= -1;
         }
@@ -46,9 +48,9 @@ public class Plupp {
     
     public void bounds() {
         Vector3f pos = geometry.geometry.getLocalTranslation();
-        if(pos.x>10) pos.x = 10;
-        if(pos.x<-10) pos.x = -10;
-        if(pos.z>10) pos.z = 10;
-        if(pos.z<-10) pos.z = -10;
+        if(pos.x >  10) { pos.x =  10; }
+        if(pos.x < -10) { pos.x = -10; }
+        if(pos.z >  10) { pos.z =  10; }
+        if(pos.z < -10) { pos.z = -10; }
     }
 }

@@ -142,9 +142,12 @@ public class Game {
         
         for(Plupp p : plupps) {
             Vector2f movement = p.velocity.mult(tpf/1000f);
+            
             float x = movement.x;
             float z = movement.y;
+            
             p.geometry.move(new Vector3f(x, 0, z));
+            
             p.bounds();
             p.bounce();
         }
