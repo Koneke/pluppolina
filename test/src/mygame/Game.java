@@ -74,7 +74,7 @@ public class Game {
             float maxDistance = 5;
             
             if(FastMath.abs(
-                distance)>maxDistance) { continue; }
+                distance) > maxDistance) { continue; }
             
             float speed = 
                 Plupp.PushStrength-
@@ -145,6 +145,8 @@ public class Game {
             float x = movement.x;
             float z = movement.y;
             p.geometry.move(new Vector3f(x, 0, z));
+            p.bounds();
+            p.bounce();
         }
     }
 }

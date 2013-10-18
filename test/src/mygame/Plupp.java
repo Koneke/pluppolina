@@ -1,13 +1,14 @@
 package mygame;
 
 import com.jme3.math.Vector2f;
+import com.jme3.math.Vector3f;
 
 public class Plupp {
     BoxGeomWrapper geometry;
     Vector2f velocity;
 
-    public static float PushStrength = 8000;
-    public static float MaxSpeed = 24000;
+    public static float PushStrength = 32000;
+    public static float MaxSpeed = 4800000;
     public static float Radius = 1;
 
     public Plupp() {
@@ -29,5 +30,25 @@ public class Plupp {
         }
         
         velocity = resultant;
+    }
+    
+    public void bounce() {
+        //check if we've hit the wall, and bounce if so.
+        //later: implement pluppbouncing here as well
+        Vector3f pos = geometry.geometry.getLocalTranslation();
+        if(pos.z>=10||pos.z<=-10) {
+            velocity.y *= -1;
+        }
+        if(pos.x>=10||pos.x<=-10) {
+            velocity.x *= -1;
+        }
+    }
+    
+    public void bounds() {
+        Vector3f pos = geometry.geometry.getLocalTranslation();
+        if(pos.x>10) pos.x = 10;
+        if(pos.x<-10) pos.x = -10;
+        if(pos.z>10) pos.z = 10;
+        if(pos.z<-10) pos.z = -10;
     }
 }
