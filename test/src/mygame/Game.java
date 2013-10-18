@@ -11,7 +11,6 @@ import com.jme3.math.Ray;
 import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
-import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import java.util.ArrayList;
 import java.util.Dictionary;
@@ -27,7 +26,7 @@ public class Game {
     Camera cam;
     
     Dictionary<String, Material> materials;
-    List<Plupp> plupps;
+    public List<Plupp> plupps;
     
     public Material loadMaterial(String path) {
         if(materials.get(path) == null) {

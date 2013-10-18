@@ -7,7 +7,7 @@ public class Plupp {
     BoxGeomWrapper geometry;
     Vector2f velocity;
 
-    public static float PushStrength = 32000;
+    public static float PushStrength = 16000;
     public static float MaxSpeed = 4800000;
     public static float Radius = 1;
 
@@ -43,6 +43,16 @@ public class Plupp {
         }
         if(pos.x>=10||pos.x<=-10) {
             velocity.x *= -1;
+        }
+        
+        //pluppbouncing
+        
+        for(Plupp p : Game.game.plupps) {
+            float distance = p.geometry.geometry.getLocalTranslation().
+                    distance(geometry.geometry.getLocalTranslation());
+            if(distance<Radius*2) {
+                
+            }
         }
     }
     
