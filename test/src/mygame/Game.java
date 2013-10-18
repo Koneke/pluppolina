@@ -57,7 +57,7 @@ public class Game {
         );
         
         mat.setTexture("DiffuseMap",
-            assetManager.loadTexture("Textures/BlueSmoke.jpg")
+            assetManager.loadTexture("Textures/Alpha_Arena_Texture.png")
         );
         
         /*rootNode.attachChild(
@@ -78,6 +78,8 @@ public class Game {
         
         Spatial arena = assetManager.loadModel("Models/alpha_arena.obj");
         arena.setMaterial(mat);
+        
+        //Node n = (Node)assetManager.loadModel("Models/alpha_arena.obj");
         
         rootNode.attachChild(arena);
     }
