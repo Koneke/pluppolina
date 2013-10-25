@@ -38,20 +38,46 @@ public class Plupp {
         
         Vector3f pos = geometry.geometry.getLocalTranslation();
         
-        if(pos.z>=10||pos.z<=-10) {
-            velocity.y *= -1;
-        }
-        if(pos.x>=10||pos.x<=-10) {
-            velocity.x *= -1;
-        }
+        if(pos.z >= 10 || pos.z <= -10) velocity.y *= -1;
+        if(pos.x >= 10 || pos.x <= -10) velocity.x *= -1;
         
         //pluppbouncing
         
-        for(Plupp p : Game.game.plupps) {
+        /*for(Plupp p : Game.game.plupps) {
             float distance = p.geometry.geometry.getLocalTranslation().
                     distance(geometry.geometry.getLocalTranslation());
             if(distance<Radius*2) {
                 
+            }
+        }*/
+        
+        for(Plupp q : Game.game.plupps) {
+            if (q.equals(this)) continue;
+            else {
+                
+                Vector2f pv =
+                        Helper.FlattenV3f(this.geometry.getLocalTranslation());
+                Vector2f qv =
+                        Helper.FlattenV3f(q.geometry.getLocalTranslation());
+                
+                float d = pv.distance(qv);
+                
+                //angle betweewn
+                float a = Helper.AngleBetweenV2f(pv, qv);
+                
+                //float pt = Helper.AngleBetweenV2f(pv, pv.add(this.velocity));
+                //float qt = Helper.AngleBetweenV2f(qv, qv.add(q.velocity));
+
+                float pt = this.velocity.getAngle();
+                float qt = q.velocity.getAngle();
+                
+                System.out.println(a);
+                
+                if (d < Radius * 2) {
+                    if (pt > a) {
+                        //foo bar
+                    }
+                }
             }
         }
     }

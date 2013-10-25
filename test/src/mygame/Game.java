@@ -70,7 +70,7 @@ public class Game {
             float distance = ppos.distance(vec);
 
             //the following are merely test values
-            float maxDistance = 5;
+            float maxDistance = 3;
             
             if(FastMath.abs(
                 distance) > maxDistance) { continue; }
@@ -120,14 +120,14 @@ public class Game {
         
         rootNode.attachChild(
             ((p = createPlupp()).geometry = new BoxGeomWrapper()
-                .setGeometry(Helper.createCube(1,1,1,"plupp"))
+                .setGeometry(Helper.createCube(1.1f,1,1.1f,"plupp"))
                 .setMaterial(mat))
             .getGeometry()
         );
         rootNode.attachChild(
             ((p = createPlupp()).geometry = new BoxGeomWrapper()
                 .setGeometry(Helper.createCube(1,1,1,"plupp"))
-                .setMaterial(mat)).move(new Vector3f(2,0,0))
+                .setMaterial(mat)).move(new Vector3f(-2,0,-2))
             .getGeometry()
         );
     }
@@ -147,8 +147,12 @@ public class Game {
             
             p.geometry.move(new Vector3f(x, 0, z));
             
+            p.velocity = p.velocity.mult(0.99f);
+            
             p.bounds();
+            if(plupps.indexOf(p) == 0)
             p.bounce();
         }
+            System.out.println("###");
     }
 }
