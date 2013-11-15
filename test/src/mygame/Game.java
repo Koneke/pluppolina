@@ -147,12 +147,11 @@ public class Game {
             
             p.geometry.move(new Vector3f(x, 0, z));
             
-            p.velocity = p.velocity.mult(0.99f);
+            p.velocity = p.velocity.mult(0.999f);
             
             p.bounds();
             if(plupps.indexOf(p) == 0)
             p.bounce();
         }
-            System.out.println("###");
     }
 }

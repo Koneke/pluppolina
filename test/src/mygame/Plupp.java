@@ -6,13 +6,21 @@ import com.jme3.math.Vector3f;
 public class Plupp {
     BoxGeomWrapper geometry;
     Vector2f velocity;
-
+    
+    Vector2f newVelocity;
+    boolean collided;
+    
     public static float PushStrength = 16000;
     public static float MaxSpeed = 4800000;
     public static float Radius = 1;
 
     public Plupp() {
         velocity = Vector2f.ZERO;
+    }
+    
+    public void ApplyCollision() {
+        velocity = newVelocity;
+        collided = false;
     }
 
     public void ApplyForce(Vector2f force) {
@@ -43,14 +51,6 @@ public class Plupp {
         
         //pluppbouncing
         
-        /*for(Plupp p : Game.game.plupps) {
-            float distance = p.geometry.geometry.getLocalTranslation().
-                    distance(geometry.geometry.getLocalTranslation());
-            if(distance<Radius*2) {
-                
-            }
-        }*/
-        
         for(Plupp q : Game.game.plupps) {
             if (q.equals(this)) continue;
             else {
@@ -71,7 +71,7 @@ public class Plupp {
                 float pt = this.velocity.getAngle();
                 float qt = q.velocity.getAngle();
                 
-                System.out.println(a);
+                //System.out.println(a);
                 
                 if (d < Radius * 2) {
                     if (pt > a) {
