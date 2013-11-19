@@ -3,9 +3,9 @@ package mygame;
 import com.jme3.asset.AssetManager;
 import com.jme3.light.DirectionalLight;
 import com.jme3.material.Material;
-import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
+import com.jme3.renderer.queue.RenderQueue;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
@@ -76,9 +76,9 @@ public class Game {
             .getGeometry()
         );
         
-        Spatial arena = assetManager.loadModel("Models/alpha_arena.obj");
+        Spatial arena = assetManager.loadModel("Models/alpha_arena/alpha_arena.j3o");
         arena.setMaterial(mat);
-        
+        arena.setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
         //Node n = (Node)assetManager.loadModel("Models/alpha_arena.obj");
         
         rootNode.attachChild(arena);
