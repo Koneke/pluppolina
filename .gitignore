@@ -221,3 +221,4 @@ pip-log.txt
 
 *.swp
 *.swo
+/test/mobile/gen/
