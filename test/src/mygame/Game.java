@@ -140,6 +140,10 @@ public class Game {
         //collisions beforehand.
         
         for(Plupp p : plupps) {
+            p.bounds();
+            if(plupps.indexOf(p) == 0)
+            p.bounce();
+            
             Vector2f movement = p.velocity.mult(tpf/1000f);
             
             float x = movement.x;
@@ -148,10 +152,6 @@ public class Game {
             p.geometry.move(new Vector3f(x, 0, z));
             
             p.velocity = p.velocity.mult(0.999f);
-            
-            p.bounds();
-            if(plupps.indexOf(p) == 0)
-            p.bounce();
         }
     }
 }

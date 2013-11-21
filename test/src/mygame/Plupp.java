@@ -74,9 +74,11 @@ public class Plupp {
                 //System.out.println(a);
                 
                 if (d < Radius * 2) {
-                    if (pt > a) {
-                        //foo bar
-                    }
+                    //find two out-angles (line between the two centers
+                    //  and one 90 deg to it
+                    //using http://en.wikipedia.org/wiki/Elastic_collision
+                    //  calculate
+                    
                 }
             }
         }
