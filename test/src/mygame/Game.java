@@ -140,16 +140,22 @@ public class Game {
         //collisions beforehand.
         
         for(Plupp p : plupps) {
+            p.bounced = false;
+        }
+        
+        for(Plupp p : plupps) {
             p.bounds();
             if(plupps.indexOf(p) == 0)
             p.bounce();
             
-            Vector2f movement = p.velocity.mult(tpf/1000f);
+            /*Vector2f movement = p.velocity.mult(tpf/1000f);
             
             float x = movement.x;
             float z = movement.y;
             
-            p.geometry.move(new Vector3f(x, 0, z));
+            p.geometry.move(new Vector3f(x, 0, z));*/
+            
+            p.move(tpf);
             
             p.velocity = p.velocity.mult(0.999f);
         }

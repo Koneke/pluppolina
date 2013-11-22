@@ -7,9 +7,6 @@ public class Plupp {
     BoxGeomWrapper geometry;
     Vector2f velocity;
     
-    Vector2f newVelocity;
-    boolean collided;
-    
     public static float PushStrength = 16000;
     public static float MaxSpeed = 4800000;
     public static float Radius = 1;
@@ -18,11 +15,6 @@ public class Plupp {
         velocity = Vector2f.ZERO;
     }
     
-    public void ApplyCollision() {
-        velocity = newVelocity;
-        collided = false;
-    }
-
     public void ApplyForce(Vector2f force) {
         Vector2f resultant;
         
@@ -33,16 +25,17 @@ public class Plupp {
         
         resultant = velocity.mult(0.5f).add(force);
         
-        if(resultant.length()>MaxSpeed) {
+        if(resultant.length() > MaxSpeed) {
             resultant = resultant.normalize().mult(MaxSpeed);
         }
         
         velocity = resultant;
     }
     
+    public boolean bounced = false;
+    
     public void bounce() {
         //check if we've hit the wall, and bounce if so.
-        //later: implement pluppbouncing here as well
         
         Vector3f pos = geometry.geometry.getLocalTranslation();
         
@@ -51,44 +44,77 @@ public class Plupp {
         
         //pluppbouncing
         
+        if (bounced) return;
+        
         for(Plupp q : Game.game.plupps) {
+            if (q.bounced) continue;
             if (q.equals(this)) continue;
-            else {
-                
-                Vector2f pv =
-                        Helper.FlattenV3f(this.geometry.getLocalTranslation());
-                Vector2f qv =
-                        Helper.FlattenV3f(q.geometry.getLocalTranslation());
-                
-                float d = pv.distance(qv);
-                
-                //angle betweewn
-                float a = Helper.AngleBetweenV2f(pv, qv);
-                
-                //float pt = Helper.AngleBetweenV2f(pv, pv.add(this.velocity));
-                //float qt = Helper.AngleBetweenV2f(qv, qv.add(q.velocity));
+            
+            
+            
+            Vector2f pos_a = Helper.FlattenV3f(
+                    this.geometry.getLocalTranslation()
+            );
 
-                float pt = this.velocity.getAngle();
-                float qt = q.velocity.getAngle();
-                
-                //System.out.println(a);
-                
-                if (d < Radius * 2) {
-                    //find two out-angles (line between the two centers
-                    //  and one 90 deg to it
-                    //using http://en.wikipedia.org/wiki/Elastic_collision
-                    //  calculate
-                    
-                }
+            Vector2f pos_b = Helper.FlattenV3f(
+                    q.geometry.getLocalTranslation()
+            );
+
+            float d = pos_a.distance(pos_b);
+
+            
+            
+            if (d < Radius * 2) {
+                  bounced = true;
+                q.bounced = true;
+
+                float x_a =   velocity.x;
+                float y_a =   velocity.y;
+                float x_b = q.velocity.x;
+                float y_b = q.velocity.y;
+
+                  velocity.x = x_b;
+                  velocity.y = y_b;
+                q.velocity.x = x_a;
+                q.velocity.y = y_a;
+
+                  unmove();
+                q.unmove();
+
+                  bounced = true;
+                q.bounced = true;
             }
+            
+            
         }
     }
     
     public void bounds() {
         Vector3f pos = geometry.geometry.getLocalTranslation();
-        if(pos.x >  10) { pos.x =  10; }
-        if(pos.x < -10) { pos.x = -10; }
-        if(pos.z >  10) { pos.z =  10; }
-        if(pos.z < -10) { pos.z = -10; }
+        if(pos.x >  10) { pos.x =  9; }
+        if(pos.x < -10) { pos.x = -9; }
+        if(pos.z >  10) { pos.z =  9; }
+        if(pos.z < -10) { pos.z = -9; }
     }
+    
+    float lasttpf;
+    
+    public void move(float tpf) {
+        Vector2f movement = velocity.mult(tpf/1000f);
+
+        float x = movement.x;
+        float z = movement.y;
+
+        geometry.move(new Vector3f(x, 0, z));
+        lasttpf = tpf;
+    }
+    
+    public void unmove() {
+        Vector2f movement = velocity.mult(-lasttpf/1000f);
+
+        float x = movement.x;
+        float z = movement.y;
+
+        geometry.move(new Vector3f(x, 0, z));
+    }   
 }
