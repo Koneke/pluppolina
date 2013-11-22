@@ -78,8 +78,8 @@ public class Plupp {
                 q.velocity.x = x_a;
                 q.velocity.y = y_a;
 
-                  unmove();
-                q.unmove();
+                  unmove(0.5f);
+                q.unmove(0.5f);
 
                   bounced = true;
                 q.bounced = true;
@@ -109,8 +109,8 @@ public class Plupp {
         lasttpf = tpf;
     }
     
-    public void unmove() {
-        Vector2f movement = velocity.mult(-lasttpf/1000f);
+    public void unmove(float m) {
+        Vector2f movement = velocity.mult(-lasttpf/1000f).mult(m);
 
         float x = movement.x;
         float z = movement.y;
