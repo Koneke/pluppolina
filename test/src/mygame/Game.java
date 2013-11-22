@@ -121,15 +121,17 @@ public class Game {
         rootNode.attachChild(
             ((p = createPlupp()).geometry = new BoxGeomWrapper()
                 .setGeometry(Helper.createCube(1.1f,1,1.1f,"plupp"))
-                .setMaterial(mat))
+                .setMaterial(mat)).move(new Vector3f(-2,0,-2))
             .getGeometry()
         );
         rootNode.attachChild(
             ((p = createPlupp()).geometry = new BoxGeomWrapper()
-                .setGeometry(Helper.createCube(1,1,1,"plupp"))
-                .setMaterial(mat)).move(new Vector3f(-2,0,-2))
+                .setGeometry(Helper.createCube(1.1f,1,1.1f,"plupp"))
+                .setMaterial(mat))
             .getGeometry()
         );
+        
+        
     }
     
     float t = 0;
@@ -145,19 +147,12 @@ public class Game {
         
         for(Plupp p : plupps) {
             p.bounds();
-            if(plupps.indexOf(p) == 0)
+            //if(plupps.indexOf(p) == 0)
             p.bounce();
-            
-            /*Vector2f movement = p.velocity.mult(tpf/1000f);
-            
-            float x = movement.x;
-            float z = movement.y;
-            
-            p.geometry.move(new Vector3f(x, 0, z));*/
             
             p.move(tpf);
             
-            p.velocity = p.velocity.mult(0.999f);
+            p.velocity = p.velocity.mult(0.99999f);
         }
     }
 }

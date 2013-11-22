@@ -39,8 +39,8 @@ public class Plupp {
         
         Vector3f pos = geometry.geometry.getLocalTranslation();
         
-        if(pos.z >= 10 || pos.z <= -10) velocity.y *= -1;
-        if(pos.x >= 10 || pos.x <= -10) velocity.x *= -1;
+        if(pos.z >= 10 || pos.z <= -10) { velocity.y *= -1; }
+        if(pos.x >= 10 || pos.x <= -10) { velocity.x *= -1; }
         
         //pluppbouncing
         
@@ -91,10 +91,10 @@ public class Plupp {
     
     public void bounds() {
         Vector3f pos = geometry.geometry.getLocalTranslation();
-        if(pos.x >  10) { pos.x =  9; }
-        if(pos.x < -10) { pos.x = -9; }
-        if(pos.z >  10) { pos.z =  9; }
-        if(pos.z < -10) { pos.z = -9; }
+        if(pos.x >  10) { pos.x =  10; }
+        if(pos.x < -10) { pos.x = -10; }
+        if(pos.z >  10) { pos.z =  10; }
+        if(pos.z < -10) { pos.z = -10; }
     }
     
     float lasttpf;
