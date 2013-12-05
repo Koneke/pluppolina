@@ -50,8 +50,6 @@ public class Plupp {
             if (q.bounced) continue;
             if (q.equals(this)) continue;
             
-            
-            
             Vector2f pos_a = Helper.FlattenV3f(
                     this.geometry.getLocalTranslation()
             );
@@ -65,8 +63,6 @@ public class Plupp {
             
             
             if (d < Radius * 2) {
-                  bounced = true;
-                q.bounced = true;
 
                 float x_a =   velocity.x;
                 float y_a =   velocity.y;
@@ -83,6 +79,9 @@ public class Plupp {
 
                   bounced = true;
                 q.bounced = true;
+                
+                this.move(0.01f);
+                   q.move(0.01f);
             }
             
             
