@@ -38,8 +38,6 @@ public class BoxGeomWrapper {
         return this;
     }
     
-    
-    
     public BoxGeomWrapper move(Vector3f offset) {
         geometry.move(offset);
         return this;

@@ -131,7 +131,6 @@ public class Game {
             .getGeometry()
         );
         
-        
     }
     
     float t = 0;

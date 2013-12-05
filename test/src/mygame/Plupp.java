@@ -74,9 +74,6 @@ public class Plupp {
                 q.velocity.x = x_a;
                 q.velocity.y = y_a;
 
-                  unmove(0.5f);
-                q.unmove(0.5f);
-
                   bounced = true;
                 q.bounced = true;
                 
