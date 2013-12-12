@@ -78,7 +78,7 @@ public class Game {
         
         Spatial arena = assetManager.loadModel("Models/alpha_arena/alpha_arena.j3o");
         arena.setMaterial(mat);
-        arena.setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
+        //arena.setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
         //Node n = (Node)assetManager.loadModel("Models/alpha_arena.obj");
         
         rootNode.attachChild(arena);

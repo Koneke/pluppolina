@@ -21,7 +21,6 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Box;
-import com.jme3.shadow.PssmShadowRenderer;
 import com.jme3.util.SkyFactory;
 
 /**
@@ -31,7 +30,7 @@ import com.jme3.util.SkyFactory;
 
 public class Main extends SimpleApplication {
     
-    private PssmShadowRenderer pssmRenderer;
+    //private PssmShadowRenderer pssmRenderer;
     
     public ActionListener actionListener = new ActionListener() {
         public void onAction(String name, boolean value, float tpf) {
@@ -108,8 +107,8 @@ public class Main extends SimpleApplication {
         inputManager.addListener(actionListener, "pick target");
                 
         //PSSM
-        pssmRenderer = new PssmShadowRenderer(assetManager, 1024, 3);
-        viewPort.addProcessor(pssmRenderer);
+        /*pssmRenderer = new PssmShadowRenderer(assetManager, 1024, 3);
+        viewPort.addProcessor(pssmRenderer);*/
         
         //Point light
         PointLight lamp_light = new PointLight();
@@ -146,7 +145,7 @@ public class Main extends SimpleApplication {
     public void simpleUpdate(float tpf) {
         game.Update(tpf);
         t += tpf;
-        pssmRenderer.setDirection(new Vector3f(0,-1,0f+t*.1f).normalizeLocal());
+        //pssmRenderer.setDirection(new Vector3f(0,-1,0f+t*.1f).normalizeLocal());
     }
     
     @Override
