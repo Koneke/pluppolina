@@ -12,6 +12,7 @@ import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.Node;
+import com.jme3.scene.Spatial;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Dictionary;
@@ -44,6 +45,7 @@ public class Game {
                 
                 Vector2f click2d = Main.app.getInputManager()
                     .getCursorPosition();
+                
                 Vector3f click3d = cam.getWorldCoordinates(
                     new Vector2f(click2d.x, click2d.y), 0f).clone();
         
@@ -140,6 +142,11 @@ public class Game {
                 .setMaterial(mat))
             .getGeometry()
         );
+        
+        Spatial arena = assetManager.loadModel("Models/alpha_arena.obj");
+        arena.setMaterial(mat);
+        
+        rootNode.attachChild(arena);
         
     }
     
