@@ -2,6 +2,9 @@ package mygame;
 
 import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
+import com.jme3.scene.Geometry;
+import java.awt.Point;
+import java.awt.Rectangle;
 
 public class Plupp {
     BoxGeomWrapper geometry;
@@ -80,8 +83,6 @@ public class Plupp {
                 this.move(0.01f);
                    q.move(0.01f);
             }
-            
-            
         }
     }
     
@@ -113,4 +114,13 @@ public class Plupp {
 
         geometry.move(new Vector3f(x, 0, z));
     }   
+    
+    public boolean insideArea(Rectangle _r) {
+        Vector2f _p = Helper.FlattenV3f(geometry.getLocalTranslation());
+        return
+            _p.x > _r.x &&
+            _p.y > _r.x &&
+            _p.x < _r.x + _r.width &&
+            _p.y < _r.y + _r.height;
+    }
 }

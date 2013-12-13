@@ -12,6 +12,7 @@ import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.Node;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.List;
@@ -94,7 +95,15 @@ public class Game {
         return p;
     }
     
+    Rectangle gameArea;
+    Rectangle redScoreArea;
+    Rectangle bluScoreArea;
+    
     public void Start() {
+        
+        gameArea = new Rectangle(-10, -10, 20, 20);
+        redScoreArea = new Rectangle(-10, -10, 3, 3);
+        bluScoreArea = new Rectangle(7, 7, 3, 3);
         
         plupps = new ArrayList();
         
@@ -124,6 +133,7 @@ public class Game {
                 .setMaterial(mat)).move(new Vector3f(-2,0,-2))
             .getGeometry()
         );
+        
         rootNode.attachChild(
             ((p = createPlupp()).geometry = new BoxGeomWrapper()
                 .setGeometry(Helper.createCube(1.1f,1,1.1f,"plupp"))
@@ -134,6 +144,9 @@ public class Game {
     }
     
     float t = 0;
+    
+    int redScore = 0;
+    int bluScore = 0;
     
     public void Update(float tpf) {
         
@@ -150,6 +163,14 @@ public class Game {
             p.bounce();
             
             p.move(tpf);
+            if(p.insideArea(redScoreArea)) {
+                bluScore+=1;
+                System.out.println("Red "+redScore+" - Blue "+bluScore);
+            }
+            if(p.insideArea(bluScoreArea)) {
+                redScore+=1;
+                System.out.println("Red "+redScore+" - Blue "+bluScore);
+            }
             
             p.velocity = p.velocity.mult(0.99999f);
         }
