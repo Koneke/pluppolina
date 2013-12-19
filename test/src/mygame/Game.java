@@ -95,15 +95,15 @@ public class Game {
         return p;
     }
     
-    Rectangle gameArea;
-    Rectangle redScoreArea;
-    Rectangle bluScoreArea;
+    kRectangle gameArea;
+    kRectangle redScoreArea;
+    kRectangle bluScoreArea;
     
     public void Start() {
         
-        gameArea = new Rectangle(-10, -10, 20, 20);
-        redScoreArea = new Rectangle(-10, -10, 3, 3);
-        bluScoreArea = new Rectangle(7, 7, 3, 3);
+        gameArea = new kRectangle(-10, -10, 20, 20);
+        redScoreArea = new kRectangle(-10, -10, 3, 3);
+        bluScoreArea = new kRectangle(7, 7, 3, 3);
         
         plupps = new ArrayList();
         
