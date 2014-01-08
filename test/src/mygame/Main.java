@@ -1,6 +1,8 @@
 package mygame;
 
 import com.jme3.app.SimpleApplication;
+import com.jme3.light.DirectionalLight;
+import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Spatial;
 import com.jme3.util.SkyFactory;
@@ -19,13 +21,13 @@ public class Main extends SimpleApplication {
         this.cam.setLocation(new Vector3f(0,1,0).mult(30));
         this.cam.lookAt(new Vector3f(0,0,0),new Vector3f(0,0,-1));
 
-        this.setDisplayStatView(false);
+        //this.setDisplayStatView(false);
         
-        Spatial skybox = SkyFactory.createSky(
-            assetManager, "Textures/Penguins.jpg", true);
-        skybox.move(0,-100,0);
-        
-        rootNode.attachChild(skybox);
+        //light
+        DirectionalLight sun = new DirectionalLight();
+        sun.setColor(ColorRGBA.White);
+        sun.setDirection(new Vector3f(-.5f,-.5f,-.5f).normalizeLocal());
+        rootNode.addLight(sun);
     }
     
     @Override

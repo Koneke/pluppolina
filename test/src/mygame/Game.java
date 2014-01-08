@@ -6,13 +6,14 @@ import com.jme3.collision.CollisionResults;
 import com.jme3.input.InputManager;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.material.Material;
+import com.jme3.math.ColorRGBA;
 import com.jme3.math.FastMath;
 import com.jme3.math.Ray;
 import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.Node;
-import java.awt.Rectangle;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.List;
@@ -113,7 +114,7 @@ public class Game {
         );
         
         mat.setTexture("ColorMap",
-            assetManager.loadTexture("Textures/Penguins.jpg")
+            assetManager.loadTexture("Textures/url.png")
         );
         
         (gameNode = new Node()).attachChild(
