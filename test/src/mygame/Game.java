@@ -5,6 +5,8 @@ import com.jme3.collision.CollisionResult;
 import com.jme3.collision.CollisionResults;
 import com.jme3.input.InputManager;
 import com.jme3.input.controls.ActionListener;
+import com.jme3.input.controls.TouchListener;
+import com.jme3.input.event.TouchEvent;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.FastMath;
@@ -35,6 +37,29 @@ public class Game {
             materials.put(path, new Material(assetManager, path)); }
         return materials.get(path);
     }
+    
+    public TouchListener touchListener = new TouchListener() {
+        public void onTouch(String name, TouchEvent evt, float tpf) {
+
+            CollisionResults results = new CollisionResults();
+                
+            Vector3f click3d = cam.getWorldCoordinates(
+                new Vector2f(evt.getX(), evt.getY()), 0f).clone();
+
+            Vector3f dir = cam.getWorldCoordinates(
+                new Vector2f(evt.getX(), evt.getY()), 1f).normalizeLocal();
+
+            Ray ray = new Ray(click3d, dir);
+            gameNode.collideWith(ray, results);
+            if(results.size() < 1) { return; }
+
+            CollisionResult cr = results.getClosestCollision();
+
+            Vector3f pt = cr.getContactPoint();
+
+            applyShockWave(pt);
+        }
+    };
     
     public ActionListener actionListener = new ActionListener() {
         public void onAction(String name, boolean value, float tpf) {
