@@ -7,7 +7,7 @@ public class Plupp {
     BoxGeomWrapper geometry;
     Vector2f velocity;
     
-    public static float PushStrength = 16000;
+    public static float PushStrength = 40000;
     public static float MaxSpeed = 4800000;
     public static float Radius = 1;
 
@@ -17,11 +17,6 @@ public class Plupp {
     
     public void ApplyForce(Vector2f force) {
         Vector2f resultant;
-        
-        //resultant = velocity.add(force);
-        
-        //test version, halving current velocity first to see if it feels
-        //more responsive.
         
         resultant = velocity.mult(0.5f).add(force);
         
@@ -39,8 +34,10 @@ public class Plupp {
         
         Vector3f pos = geometry.geometry.getLocalTranslation();
         
-        if(pos.z >= 10 || pos.z <= -10) { velocity.y *= -1; }
-        if(pos.x >= 10 || pos.x <= -10) { velocity.x *= -1; }
+        if(pos.z >= Game.game.gameArea.h/2 ||
+           pos.z <= -Game.game.gameArea.h/2) { velocity.y *= -1; }
+        if(pos.x >= Game.game.gameArea.w/2 ||
+           pos.x <= -Game.game.gameArea.w/2) { velocity.x *= -1; }
         
         //pluppbouncing
         
@@ -85,10 +82,10 @@ public class Plupp {
     
     public void bounds() {
         Vector3f pos = geometry.geometry.getLocalTranslation();
-        if(pos.x >  10) { pos.x =  10; }
-        if(pos.x < -10) { pos.x = -10; }
-        if(pos.z >  10) { pos.z =  10; }
-        if(pos.z < -10) { pos.z = -10; }
+        if(pos.x >  Game.game.gameArea.w/2) { pos.x =  Game.game.gameArea.w/2; }
+        if(pos.x < -Game.game.gameArea.w/2) { pos.x = -Game.game.gameArea.w/2; }
+        if(pos.z >  Game.game.gameArea.h/2) { pos.z =  Game.game.gameArea.h/2; }
+        if(pos.z < -Game.game.gameArea.h/2) { pos.z = -Game.game.gameArea.h/2; }
     }
     
     float lasttpf;

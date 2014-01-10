@@ -8,14 +8,12 @@ import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.TouchListener;
 import com.jme3.input.event.TouchEvent;
 import com.jme3.material.Material;
-import com.jme3.math.ColorRGBA;
 import com.jme3.math.FastMath;
 import com.jme3.math.Ray;
 import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.Node;
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.List;
@@ -40,7 +38,7 @@ public class Game {
     
     public TouchListener touchListener = new TouchListener() {
         public void onTouch(String name, TouchEvent evt, float tpf) {
-
+            if(evt.getType() != TouchEvent.Type.DOWN) return;
             CollisionResults results = new CollisionResults();
                 
             Vector3f click3d = cam.getWorldCoordinates(
@@ -97,14 +95,23 @@ public class Game {
             float distance = ppos.distance(vec);
 
             //the following are merely test values
-            float maxDistance = 3;
+            float maxDistance = 5;
             
             if(FastMath.abs(
                 distance) > maxDistance) { continue; }
             
-            float speed = 
+            /*float speed = 
                 Plupp.PushStrength-
-                (FastMath.abs(distance)/maxDistance)*Plupp.PushStrength;
+                (FastMath.abs(distance)/maxDistance)*Plupp.PushStrength;*/
+            
+            distance = Math.min(distance, maxDistance);
+            
+            float speed = 0;
+            speed = maxDistance - distance;
+            speed /= maxDistance;
+            //speed = speed < 0 ? 0 : speed;
+            speed *= speed;
+            speed *= Plupp.PushStrength;
 
             Vector3f pos = p.geometry.geometry.getLocalTranslation();
             Vector2f dir = new Vector2f(pos.x-vec.x, pos.z-vec.z).mult(speed);
@@ -121,13 +128,13 @@ public class Game {
         return p;
     }
     
-    kRectangle gameArea;
+    public kRectangle gameArea;
     kRectangle redScoreArea;
     kRectangle bluScoreArea;
     
     public void Start() {
         
-        gameArea = new kRectangle(-10, -10, 20, 20);
+        gameArea = new kRectangle(-16, -10, 32, 20);
         redScoreArea = new kRectangle(-10, -10, 3, 3);
         bluScoreArea = new kRectangle(7, 7, 3, 3);
         
@@ -144,7 +151,7 @@ public class Game {
         
         (gameNode = new Node()).attachChild(
             (new BoxGeomWrapper())
-                .setGeometry(Helper.createCube(10,0.1f,10,"alfred"))
+                .setGeometry(Helper.createCube(16,0.1f,10,"alfred"))
                 .setMaterial(mat)
                 .getGeometry()
         );
