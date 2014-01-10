@@ -4,8 +4,6 @@ import com.jme3.app.SimpleApplication;
 import com.jme3.light.DirectionalLight;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
-import com.jme3.scene.Spatial;
-import com.jme3.util.SkyFactory;
 
 public class Main extends SimpleApplication {
     public static Main app;

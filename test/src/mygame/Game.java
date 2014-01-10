@@ -174,6 +174,56 @@ public class Game {
             .getGeometry()
         );
         
+        
+        
+        /*rootNode.attachChild(
+            ((p = createPlupp()).geometry = new BoxGeomWrapper()
+                .setGeometry(Helper.createCube(1.1f,1,1.1f,"plupp"))
+                .setMaterial(mat)).move(new Vector3f(2,0,2))
+            .getGeometry()
+        );
+        
+        rootNode.attachChild(
+            ((p = createPlupp()).geometry = new BoxGeomWrapper()
+                .setGeometry(Helper.createCube(1.1f,1,1.1f,"plupp"))
+                .setMaterial(mat)).move(new Vector3f(-2,0,2))
+            .getGeometry()
+        );
+        
+        rootNode.attachChild(
+            ((p = createPlupp()).geometry = new BoxGeomWrapper()
+                .setGeometry(Helper.createCube(1.1f,1,1.1f,"plupp"))
+                .setMaterial(mat)).move(new Vector3f(2,0,-2))
+            .getGeometry()
+        );
+        
+        rootNode.attachChild(
+            ((p = createPlupp()).geometry = new BoxGeomWrapper()
+                .setGeometry(Helper.createCube(1.1f,1,1.1f,"plupp"))
+                .setMaterial(mat)).move(new Vector3f(2,0,0))
+            .getGeometry()
+        );
+        
+        rootNode.attachChild(
+            ((p = createPlupp()).geometry = new BoxGeomWrapper()
+                .setGeometry(Helper.createCube(1.1f,1,1.1f,"plupp"))
+                .setMaterial(mat)).move(new Vector3f(-2,0,0))
+            .getGeometry()
+        );
+        
+        rootNode.attachChild(
+            ((p = createPlupp()).geometry = new BoxGeomWrapper()
+                .setGeometry(Helper.createCube(1.1f,1,1.1f,"plupp"))
+                .setMaterial(mat)).move(new Vector3f(0,0,2))
+            .getGeometry()
+        );
+        
+        rootNode.attachChild(
+            ((p = createPlupp()).geometry = new BoxGeomWrapper()
+                .setGeometry(Helper.createCube(1.1f,1,1.1f,"plupp"))
+                .setMaterial(mat)).move(new Vector3f(0,0,-2))
+            .getGeometry()
+        );*/
     }
     
     float t = 0;
