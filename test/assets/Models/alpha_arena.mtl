@@ -1,56 +1,34 @@
-newmtl blinn7SG
-illum 4
-Kd 0.17 0.47 0.30
-Ka 0.00 0.00 0.00
-Tf 1.00 1.00 1.00
-Ni 1.00
-Ks 0.50 0.50 0.50
-newmtl blinn9SG
+newmtl Arena_Final:blinn12SG
 illum 4
 Kd 0.00 0.00 0.00
 Ka 0.00 0.00 0.00
 Tf 1.00 1.00 1.00
-map_Kd Textur.png
+map_Kd alpha_arena_color.png
 Ni 1.00
 Ks 0.50 0.50 0.50
-newmtl initialShadingGroup
+newmtl Arena_Final:lambert9SG
 illum 4
-Kd 0.50 0.50 0.50
+Kd 0.00 0.00 0.00
 Ka 0.00 0.00 0.00
 Tf 1.00 1.00 1.00
-Ni 1.00
-newmtl lambert2SG
-illum 4
-Kd 0.34 0.28 0.25
-Ka 0.00 0.00 0.00
-Tf 1.00 1.00 1.00
-Ni 1.00
-newmtl lambert5SG
-illum 4
-Kd 0.49 0.78 0.29
-Ka 0.00 0.00 0.00
-Tf 1.00 1.00 1.00
-Ni 1.00
-newmtl lambert6SG
-illum 4
-Kd 0.74 0.12 0.00
-Ka 0.00 0.00 0.00
-Tf 1.00 1.00 1.00
-Ni 1.00
-newmtl lambert8SG
-illum 4
-Kd 0.50 0.50 0.50
-Ka 0.00 0.00 0.00
-Tf 1.00 1.00 1.00
-Ni 1.00
-newmtl phongE2SG
-illum 4
-Kd 0.96 0.93 0.33
-Ka 0.00 0.00 0.00
-Tf 1.00 1.00 1.00
+map_Kd alpha_ground_color.png
 Ni 1.00
 Ks 0.50 0.50 0.50
-newmtl phongE3SG
+newmtl Arena_Final:lambert10SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd trees_texture.png
+Ni 1.00
+newmtl pasted__lambert3SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd palmtrees_texture.png
+Ni 1.00
+newmtl pasted__phongE1SG
 illum 4
 Kd 0.50 0.50 0.50
 Ka 0.00 0.00 0.00

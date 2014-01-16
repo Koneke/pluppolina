@@ -1,8 +1,10 @@
 package mygame;
 
 import com.jme3.asset.AssetManager;
+import com.jme3.light.AmbientLight;
 import com.jme3.light.DirectionalLight;
 import com.jme3.material.Material;
+import com.jme3.math.ColorRGBA;
 import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
@@ -57,8 +59,21 @@ public class Game {
         );
         
         mat.setTexture("DiffuseMap",
-            assetManager.loadTexture("Textures/Alpha_Arena_Texture.png")
+            assetManager.loadTexture("Models/alpha_arena_color.png")
         );
+        //mat.setTexture("NormalMap", 
+        //      assetManager.loadTexture("Models/alpha_arena_normal.png"));
+        mat.setTexture("SpecularMap", 
+                assetManager.loadTexture("Models/alpha_arena_specular.png")); 
+        
+        mat.setBoolean("UseMaterialColors",true);    
+        mat.setColor("Diffuse",ColorRGBA.White);  // minimum material color
+        mat.setColor("Specular",ColorRGBA.White); // for shininess
+        mat.setFloat("Shininess", 64f); // [1,128] for shininess
+        
+        AmbientLight al = new AmbientLight();
+        al.setColor(ColorRGBA.White.mult(1.3f));
+        //rootNode.addLight(al);
         
         /*rootNode.attachChild(
             (new BoxGeomWrapper())
@@ -83,6 +98,7 @@ public class Game {
         
         rootNode.attachChild(arena);
     }
+    
     
     float t = 0;
     
