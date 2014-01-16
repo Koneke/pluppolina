@@ -10,6 +10,9 @@ public class Plupp {
     public static float PushStrength = 40000;
     public static float MaxSpeed = 4800000;
     public static float Radius = 1;
+    
+    public boolean bounced = false;
+    float lasttpf; //used for reversing a frame of movement
 
     public Plupp() {
         velocity = Vector2f.ZERO;
@@ -26,8 +29,6 @@ public class Plupp {
         
         velocity = resultant;
     }
-    
-    public boolean bounced = false;
     
     public void bounce() {
         //check if we've hit the wall, and bounce if so.
@@ -87,8 +88,6 @@ public class Plupp {
         if(pos.z >  Game.game.gameArea.h/2) { pos.z =  Game.game.gameArea.h/2; }
         if(pos.z < -Game.game.gameArea.h/2) { pos.z = -Game.game.gameArea.h/2; }
     }
-    
-    float lasttpf;
     
     public void move(float tpf) {
         Vector2f movement = velocity.mult(tpf/1000f);

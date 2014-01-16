@@ -35,8 +35,10 @@ public class Main extends SimpleApplication {
         Game.game = new Game();
         Game.game.assetManager = assetManager;
         Game.game.rootNode = rootNode;
+        Game.game.guiNode = guiNode;
         Game.game.inputManager = inputManager;
         Game.game.cam = this.cam;
+        Game.game.font = guiFont;
         Game.game.Start();
         
         Controls.Setup();

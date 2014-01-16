@@ -3,11 +3,14 @@ package mygame;
 import com.jme3.asset.AssetManager;
 import com.jme3.collision.CollisionResult;
 import com.jme3.collision.CollisionResults;
+import com.jme3.font.BitmapFont;
+import com.jme3.font.BitmapText;
 import com.jme3.input.InputManager;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.TouchListener;
 import com.jme3.input.event.TouchEvent;
 import com.jme3.material.Material;
+import com.jme3.math.ColorRGBA;
 import com.jme3.math.FastMath;
 import com.jme3.math.Ray;
 import com.jme3.math.Vector2f;
@@ -18,25 +21,45 @@ import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.List;
 
+//migrate input out of this file pls
+
 public class Game {
     public static Game game;
     
     AssetManager assetManager;
     Node rootNode;
     Node gameNode;
+    Node guiNode;
     InputManager inputManager;
     Camera cam;
     
     Dictionary<String, Material> materials;
     public List<Plupp> plupps;
     
-    public Material loadMaterial(String path) {
+    public kRectangle gameArea;
+    kRectangle redScoreArea;
+    kRectangle bluScoreArea;
+    
+    List<Plupp> respawnQueue;
+    float respawnTime = 1.5f; //s
+    float respawnTimer;
+    
+    int redScore = 0;
+    int bluScore = 0;
+    
+    public BitmapFont font;
+    BitmapText gameLog;
+    List<String> logStrings;
+    
+    public Material loadMaterial(String path)
+    {
         if(materials.get(path) == null) {
             materials.put(path, new Material(assetManager, path)); }
         return materials.get(path);
     }
     
-    public TouchListener touchListener = new TouchListener() {
+    public TouchListener touchListener = new TouchListener()
+    {
         public void onTouch(String name, TouchEvent evt, float tpf) {
             if(evt.getType() != TouchEvent.Type.DOWN) return;
             CollisionResults results = new CollisionResults();
@@ -59,7 +82,8 @@ public class Game {
         }
     };
     
-    public ActionListener actionListener = new ActionListener() {
+    public ActionListener actionListener = new ActionListener()
+    {
         public void onAction(String name, boolean value, float tpf) {
             if (name.equals("pick target")) {
                 if (!value) { return; }
@@ -87,7 +111,8 @@ public class Game {
         };
     };
     
-    public void applyShockWave(Vector3f vec) {
+    public void applyShockWave(Vector3f vec)
+    {
         for(int i = 0;i<plupps.size();i++) {
             Plupp p = plupps.get(i);
             
@@ -100,16 +125,11 @@ public class Game {
             if(FastMath.abs(
                 distance) > maxDistance) { continue; }
             
-            /*float speed = 
-                Plupp.PushStrength-
-                (FastMath.abs(distance)/maxDistance)*Plupp.PushStrength;*/
-            
             distance = Math.min(distance, maxDistance);
             
             float speed = 0;
             speed = maxDistance - distance;
             speed /= maxDistance;
-            //speed = speed < 0 ? 0 : speed;
             speed *= speed;
             speed *= Plupp.PushStrength;
 
@@ -122,23 +142,40 @@ public class Game {
         }
     }
     
-    public Plupp createPlupp() {
+    public Plupp createPlupp()
+    {
         Plupp p = new Plupp();
         plupps.add(p);
         return p;
     }
     
-    public kRectangle gameArea;
-    kRectangle redScoreArea;
-    kRectangle bluScoreArea;
+    public void respawn(Plupp p)
+    {
+    }
+    
+    void log(String s)
+    {
+        //join here ok logStrings.
+        gameLog.setText(s);
+    }
     
     public void Start() {
-        
         gameArea = new kRectangle(-16, -10, 32, 20);
         redScoreArea = new kRectangle(-10, -10, 3, 3);
         bluScoreArea = new kRectangle(7, 7, 3, 3);
         
         plupps = new ArrayList();
+        
+        respawnTimer = 0;
+        
+        gameLog = new BitmapText(font, false);
+        gameLog.setSize(font.getCharSet().getRenderedSize());
+        gameLog.setLocalTranslation(200, 100, 0);
+        gameLog.setColor(ColorRGBA.White);
+        guiNode.attachChild(gameLog);
+        logStrings = new ArrayList<String>();
+        
+        //migrate everything below here out somewhere? idk seems messy atm
         
         Material mat = new Material(
             assetManager,
@@ -173,86 +210,40 @@ public class Game {
                 .setMaterial(mat))
             .getGeometry()
         );
-        
-        
-        
-        /*rootNode.attachChild(
-            ((p = createPlupp()).geometry = new BoxGeomWrapper()
-                .setGeometry(Helper.createCube(1.1f,1,1.1f,"plupp"))
-                .setMaterial(mat)).move(new Vector3f(2,0,2))
-            .getGeometry()
-        );
-        
-        rootNode.attachChild(
-            ((p = createPlupp()).geometry = new BoxGeomWrapper()
-                .setGeometry(Helper.createCube(1.1f,1,1.1f,"plupp"))
-                .setMaterial(mat)).move(new Vector3f(-2,0,2))
-            .getGeometry()
-        );
-        
-        rootNode.attachChild(
-            ((p = createPlupp()).geometry = new BoxGeomWrapper()
-                .setGeometry(Helper.createCube(1.1f,1,1.1f,"plupp"))
-                .setMaterial(mat)).move(new Vector3f(2,0,-2))
-            .getGeometry()
-        );
-        
-        rootNode.attachChild(
-            ((p = createPlupp()).geometry = new BoxGeomWrapper()
-                .setGeometry(Helper.createCube(1.1f,1,1.1f,"plupp"))
-                .setMaterial(mat)).move(new Vector3f(2,0,0))
-            .getGeometry()
-        );
-        
-        rootNode.attachChild(
-            ((p = createPlupp()).geometry = new BoxGeomWrapper()
-                .setGeometry(Helper.createCube(1.1f,1,1.1f,"plupp"))
-                .setMaterial(mat)).move(new Vector3f(-2,0,0))
-            .getGeometry()
-        );
-        
-        rootNode.attachChild(
-            ((p = createPlupp()).geometry = new BoxGeomWrapper()
-                .setGeometry(Helper.createCube(1.1f,1,1.1f,"plupp"))
-                .setMaterial(mat)).move(new Vector3f(0,0,2))
-            .getGeometry()
-        );
-        
-        rootNode.attachChild(
-            ((p = createPlupp()).geometry = new BoxGeomWrapper()
-                .setGeometry(Helper.createCube(1.1f,1,1.1f,"plupp"))
-                .setMaterial(mat)).move(new Vector3f(0,0,-2))
-            .getGeometry()
-        );*/
     }
     
-    float t = 0;
-    
-    int redScore = 0;
-    int bluScore = 0;
-    
     public void Update(float tpf) {
+        respawnTimer += tpf;
         
-        //before moving, calculate where they are all going to be and handle
-        //collisions beforehand.
+        if(respawnTimer >= respawnTime)
+        {
+            log("yolo\nswag");
+        }
         
-        for(Plupp p : plupps) {
+        for(Plupp p : plupps)
+        {
             p.bounced = false;
         }
         
-        for(Plupp p : plupps) {
+        for(Plupp p : plupps)
+        {
+            //keep in bounds
             p.bounds();
-            //if(plupps.indexOf(p) == 0)
+            //calculate bouncing
             p.bounce();
             
             p.move(tpf);
+            
             if(p.insideArea(redScoreArea)) {
                 bluScore+=1;
                 System.out.println("Red "+redScore+" - Blue "+bluScore);
+                //respawn
             }
+            
             if(p.insideArea(bluScoreArea)) {
                 redScore+=1;
                 System.out.println("Red "+redScore+" - Blue "+bluScore);
+                //respawn
             }
             
             p.velocity = p.velocity.mult(0.99999f);
