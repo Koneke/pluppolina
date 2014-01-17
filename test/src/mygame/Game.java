@@ -5,7 +5,6 @@ import com.jme3.light.AmbientLight;
 import com.jme3.light.DirectionalLight;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
-import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.Geometry;
@@ -16,7 +15,7 @@ import java.util.Dictionary;
 import java.util.List;
 
 public class Game {
-    AssetManager assetManager;
+    public AssetManager assetManager;
     Node rootNode;
     Camera cam;
 
@@ -26,6 +25,8 @@ public class Game {
     Dictionary<String, Material> materials;
     List<Plupp> plupps;
     
+    public static Game game;
+    
     public Material loadMaterial(String path) {
         if(materials.get(path) != null) { return materials.get(path); }
         return new Material(
@@ -33,6 +34,7 @@ public class Game {
     }
     
     public Game() {
+        game = this;
     }
     
     public void applyShockWave(Vector3f vec) {
@@ -49,54 +51,11 @@ public class Game {
         return p;
     }
     
-    public void Start() {
-        
+    public void Start() {        
         plupps = new ArrayList();
         
-        Material mat = new Material(
-            assetManager,
-            "Common/MatDefs/Light/Lighting.j3md"
-        );
-        
-        mat.setTexture("DiffuseMap",
-            assetManager.loadTexture("Models/alpha_arena_color.png")
-        );
-        //mat.setTexture("NormalMap", 
-        //      assetManager.loadTexture("Models/alpha_arena_normal.png"));
-        mat.setTexture("SpecularMap", 
-                assetManager.loadTexture("Models/alpha_arena_specular.png")); 
-        
-        mat.setBoolean("UseMaterialColors",true);    
-        mat.setColor("Diffuse",ColorRGBA.White);  // minimum material color
-        mat.setColor("Specular",ColorRGBA.White); // for shininess
-        mat.setFloat("Shininess", 64f); // [1,128] for shininess
-        
-        AmbientLight al = new AmbientLight();
-        al.setColor(ColorRGBA.White.mult(1.3f));
-        //rootNode.addLight(al);
-        
-        /*rootNode.attachChild(
-            (new BoxGeomWrapper())
-                .setGeometry(Helper.createCube(10,0.1f,10,"alfred"))
-                .setMaterial(mat)
-                .getGeometry()
-        );*/
-        
-        Plupp p;
-        
-        rootNode.attachChild(
-            ((p = createPlupp()).geometry = new BoxGeomWrapper()
-                .setGeometry(Helper.createCube(1,1,1,"plupp"))
-                .setMaterial(mat))
-            .getGeometry()
-        );
-        
-        Spatial arena = assetManager.loadModel("Models/alpha_arena.obj");
-        arena.setMaterial(mat);
-        
-        //Node n = (Node)assetManager.loadModel("Models/alpha_arena.obj");
-        
-        rootNode.attachChild(arena);
+        World w = new World();
+        w.Load(rootNode);
     }
     
     
@@ -111,6 +70,6 @@ public class Game {
             new Vector3f(0,0,0),
             new Vector3f(0,0,-1));
         
-        sun.setDirection(new Vector3f(0f,-1f,-4f+t*1f).normalizeLocal());
+        sun.setDirection(new Vector3f(0f,-1f,-4f+t*.1f).normalizeLocal());
     }
 }
