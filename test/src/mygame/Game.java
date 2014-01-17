@@ -271,16 +271,17 @@ public class Game {
             if(p.insideArea(redScoreArea)) {
                 bluScore+=1;
                 System.out.println("Red "+redScore+" - Blue "+bluScore);
-                //respawn
-                respawnQueue.add(p);
+                //respawn tempdisabled
+                /*respawnQueue.add(p);
+                p.geometry.geometry.setLocalTranslation(20, 20, 20);*/
             }
             
             if(p.insideArea(bluScoreArea)) {
                 redScore+=1;
                 System.out.println("Red "+redScore+" - Blue "+bluScore);
-                //respawn
-                respawnQueue.add(p);
-                p.geometry.geometry.setLocalTranslation(20, 20, 20);
+                //respawn tempdisabled
+                /*respawnQueue.add(p);
+                p.geometry.geometry.setLocalTranslation(20, 20, 20);*/
             }
             
             p.velocity = p.velocity.mult(0.99999f);

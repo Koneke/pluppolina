@@ -57,21 +57,23 @@ public class Plupp {
             );
 
             float d = pos_a.distance(pos_b);
-
-            
             
             if (d < Radius * 2) {
-
                 float x_a =   velocity.x;
                 float y_a =   velocity.y;
                 float x_b = q.velocity.x;
                 float y_b = q.velocity.y;
 
-                  velocity.x = x_b;
+                /*  velocity.x = x_b;
                   velocity.y = y_b;
                 q.velocity.x = x_a;
-                q.velocity.y = y_a;
-
+                q.velocity.y = y_a;*/
+                
+                  velocity.x = x_b * 0.9f + x_a * 0.1f;
+                  velocity.y = y_b * 0.9f + y_a * 0.1f;
+                q.velocity.x = x_a * 0.9f + x_b * 0.1f;
+                q.velocity.y = y_a * 0.9f + y_b * 0.1f;
+                
                   bounced = true;
                 q.bounced = true;
                 
