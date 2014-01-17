@@ -36,6 +36,9 @@ public class Game {
     Dictionary<String, Material> materials;
     public List<Plupp> plupps;
     
+    //public List<Shockwave>
+    //have shockwaves remain for a while
+    
     public kRectangle gameArea;
     kRectangle redScoreArea;
     kRectangle bluScoreArea;
@@ -50,6 +53,7 @@ public class Game {
     public BitmapFont font;
     BitmapText gameLog;
     List<String> logStrings;
+    int logSize = 10;
     
     public Material loadMaterial(String path)
     {
@@ -151,12 +155,36 @@ public class Game {
     
     public void respawn(Plupp p)
     {
+        if(respawnQueue.contains(p)) { respawnQueue.remove(p); }
+        p.geometry.geometry.setLocalTranslation(0, 0, 10);
+        p.velocity.x = 0;
+        p.velocity.y = -12000;
+        plupps.add(p);
+    }
+    
+    public void addToRespawnQueue(Plupp p)
+    {
+        if(respawnQueue.isEmpty()) //does not always work?
+        {
+            respawnTimer = 0;
+        }
+        respawnQueue.add(p);
     }
     
     void log(String s)
     {
-        //join here ok logStrings.
-        gameLog.setText(s);
+        logStrings.add(s);
+        if(logStrings.size() > logSize) {
+            logStrings =
+                logStrings.subList(
+                    logStrings.size()-logSize, logStrings.size());
+        }
+        StringBuilder sb = new StringBuilder();
+        for(String f : logStrings) {
+            sb.append(f);
+            sb.append('\n');
+        }
+        gameLog.setText(sb);
     }
     
     public void Start() {
@@ -166,11 +194,12 @@ public class Game {
         
         plupps = new ArrayList();
         
+        respawnQueue = new ArrayList<Plupp>();
         respawnTimer = 0;
         
         gameLog = new BitmapText(font, false);
         gameLog.setSize(font.getCharSet().getRenderedSize());
-        gameLog.setLocalTranslation(200, 100, 0);
+        gameLog.setLocalTranslation(200, 20+logSize*20, 0);
         gameLog.setColor(ColorRGBA.White);
         guiNode.attachChild(gameLog);
         logStrings = new ArrayList<String>();
@@ -217,7 +246,12 @@ public class Game {
         
         if(respawnTimer >= respawnTime)
         {
-            log("yolo\nswag");
+            if(respawnQueue.size() > 0)
+            {
+                Plupp p = respawnQueue.get(0);
+                respawn(p);
+            }
+            respawnTimer = 0;
         }
         
         for(Plupp p : plupps)
@@ -238,15 +272,22 @@ public class Game {
                 bluScore+=1;
                 System.out.println("Red "+redScore+" - Blue "+bluScore);
                 //respawn
+                respawnQueue.add(p);
             }
             
             if(p.insideArea(bluScoreArea)) {
                 redScore+=1;
                 System.out.println("Red "+redScore+" - Blue "+bluScore);
                 //respawn
+                respawnQueue.add(p);
+                p.geometry.geometry.setLocalTranslation(20, 20, 20);
             }
             
             p.velocity = p.velocity.mult(0.99999f);
+        }
+        
+        for(Plupp p : respawnQueue) {
+            if(plupps.contains(p)) { plupps.remove(p); }
         }
     }
 }

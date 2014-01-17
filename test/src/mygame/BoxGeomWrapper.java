@@ -22,12 +22,10 @@ public class BoxGeomWrapper {
         return this;
     }
     
-    
     //throughcall for readabilities sake
     public Vector3f getLocalTranslation() {
         return geometry.getLocalTranslation();
     }
-    
     
     public Box getBox() {
         return box;
