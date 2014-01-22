@@ -99,7 +99,7 @@ public class World {
         rootNode.attachChild(
             ((p = Game.game.createPlupp()).geometry = new BoxGeomWrapper()
                 .setGeometry(Helper.createCube(1,1,1,"plupp"))
-                .setMaterial(matTree))
+                .setMaterial(matArena))
             .getGeometry()
         );
     }
