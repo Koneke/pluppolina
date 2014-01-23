@@ -8,7 +8,6 @@ import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.MouseButtonTrigger;
 import com.jme3.light.DirectionalLight;
 import com.jme3.math.ColorRGBA;
-import com.jme3.math.FastMath;
 import com.jme3.math.Ray;
 import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
@@ -88,7 +87,7 @@ public class Main extends SimpleApplication {
         
         DirectionalLight sun = new DirectionalLight();
         sun.setDirection(new Vector3f(0,-1,-2).normalizeLocal());
-        sun.setColor(ColorRGBA.Yellow);
+        sun.setColor(ColorRGBA.White);
         rootNode.addLight(sun);
         
         game.sun = sun;

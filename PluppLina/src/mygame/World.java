@@ -92,14 +92,19 @@ public class World {
         
         rootNode.attachChild(tree);
         
-        //plupp
-        Plupp p;
-        
-        rootNode.attachChild(
-            ((p = Game.game.createPlupp()).geometry = new BoxGeomWrapper()
-                .setGeometry(Helper.createCube(1,1,1,"plupp"))
-                .setMaterial(matArena))
-            .getGeometry()
+        //timer
+        Material matTimer = new Material(
+            Game.game.assetManager,
+            "Common/MatDefs/Light/Lighting.j3md"
         );
+        matTimer.setTexture("DiffuseMap",
+            Game.game.assetManager.loadTexture("Models/alpha_timer_color.png")
+        );
+        matTimer.getAdditionalRenderState().setBlendMode(BlendMode.Alpha);
+
+        Spatial timer = Game.game.assetManager.loadModel("Models/alpha_timer.j3o");
+        timer.setMaterial(matTimer);
+        
+        rootNode.attachChild(timer);
     }
 }

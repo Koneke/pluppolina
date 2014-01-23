@@ -58,13 +58,10 @@ public class Game {
         rootNode.attachChild(levelNode);
     }
     
-    
     float t = 0;
     
     public void Update(float tpf) {
         t += tpf;
-        plupps.get(0).geometry.geometry.setLocalTranslation(
-            new Vector3f(0,0,1).mult(5));
         
         cam.lookAt(
             new Vector3f(0,0,0),
