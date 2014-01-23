@@ -1,18 +1,16 @@
 package mygame;
 
 import com.jme3.asset.AssetManager;
-import com.jme3.light.AmbientLight;
 import com.jme3.light.DirectionalLight;
 import com.jme3.material.Material;
-import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
-import com.jme3.scene.Spatial;
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.List;
+import static mygame.Game.game;
 
 public class Game {
     public AssetManager assetManager;
@@ -53,9 +51,11 @@ public class Game {
     
     public void Start() {        
         plupps = new ArrayList();
-        
+        Node levelNode = new Node();
         World w = new World();
-        w.Load(rootNode);
+        w.Load(levelNode);
+        levelNode.setLocalTranslation(0, 0, .5f);
+        rootNode.attachChild(levelNode);
     }
     
     

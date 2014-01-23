@@ -62,7 +62,7 @@ public class Main extends SimpleApplication {
     private void setup() {
         this.flyCam.setEnabled(true);
         this.flyCam.setMoveSpeed(100);
-        this.cam.setLocation(new Vector3f(0,0.85f,0).mult(30));
+        this.cam.setLocation(new Vector3f(0,0.815f,0).mult(30));
         this.cam.lookAt(new Vector3f(0,0,0),new Vector3f(-1,0,0));
         
         Spatial skybox = SkyFactory.createSky(
