@@ -14,32 +14,35 @@ public class BoxGeomWrapper {
     }
     
     public Geometry getGeometry() {
-	return geometry;
+        return geometry;
     }
     
     public BoxGeomWrapper setGeometry(Geometry geometry) {
-	this.geometry = geometry;
-	return this;
+        this.geometry = geometry;
+        return this;
+    }
+    
+    //throughcall for readabilities sake
+    public Vector3f getLocalTranslation() {
+        return geometry.getLocalTranslation();
     }
     
     public Box getBox() {
-	return box;
+        return box;
     }
     
     public BoxGeomWrapper setBox(Box box) {
-	this.box = box;
-	return this;
+        this.box = box;
+        return this;
     }
     
-    
-    
     public BoxGeomWrapper move(Vector3f offset) {
-	geometry.move(offset);
-	return this;
+        geometry.move(offset);
+        return this;
     }
     
     public BoxGeomWrapper setMaterial(Material mat) {
-	geometry.setMaterial(mat);
-	return this;
+        geometry.setMaterial(mat);
+        return this;
     }
 }
