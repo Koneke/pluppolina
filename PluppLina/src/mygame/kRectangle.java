@@ -1,15 +1,28 @@
 package mygame;
 
 public class kRectangle {
-    public int x;
-    public int y;
-    public int w;
-    public int h;
+    public float x;
+    public float y;
+    public float w;
+    public float h;
     
-    public kRectangle(int _x, int _y, int _w, int _h) {
+    public kRectangle(
+            float _x,
+            float _y,
+            float _w,
+            float _h) {
         x = _x;
         y = _y;
         w = _w;
         h = _h;
     }
+    
+    public float Left()
+        { return x-w/2; }
+    public float Right()
+        { return x+w/2; }
+    public float Top()
+        { return y-h/2; }
+    public float Bottom()
+        { return y+h/2; }
 }

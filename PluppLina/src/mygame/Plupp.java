@@ -37,6 +37,7 @@ public class Plupp {
         
         if(pos.z >= Game.game.gameArea.h/2 ||
            pos.z <= -Game.game.gameArea.h/2) { velocity.y *= -1; }
+        
         if(pos.x >= Game.game.gameArea.w/2 ||
            pos.x <= -Game.game.gameArea.w/2) { velocity.x *= -1; }
         
@@ -85,10 +86,10 @@ public class Plupp {
     
     public void bounds() {
         Vector3f pos = geometry.geometry.getLocalTranslation();
-        if(pos.x >  Game.game.gameArea.w/2) { pos.x =  Game.game.gameArea.w/2; }
-        if(pos.x < -Game.game.gameArea.w/2) { pos.x = -Game.game.gameArea.w/2; }
-        if(pos.z >  Game.game.gameArea.h/2) { pos.z =  Game.game.gameArea.h/2; }
-        if(pos.z < -Game.game.gameArea.h/2) { pos.z = -Game.game.gameArea.h/2; }
+        if(pos.x >  Game.game.gameArea.w/2f) { pos.x =  Game.game.gameArea.w/2f; }
+        if(pos.x < -Game.game.gameArea.w/2f) { pos.x = -Game.game.gameArea.w/2f; }
+        if(pos.z >  Game.game.gameArea.h/2f) { pos.z =  Game.game.gameArea.h/2f; }
+        if(pos.z < -Game.game.gameArea.h/2f) { pos.z = -Game.game.gameArea.h/2f; }
     }
     
     public void move(float tpf) {

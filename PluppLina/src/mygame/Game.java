@@ -196,8 +196,8 @@ public class Game {
         levelNode.setLocalTranslation(0, 0, .5f);
         rootNode.attachChild(levelNode);
         
-        
-        gameArea = new kRectangle(-16, -10, 32, 20);
+        //gameArea = new kRectangle(-10, -4, 20, 11);
+        gameArea = new kRectangle(0, 0, 20, 11);
         redScoreArea = new kRectangle(-10, -10, 3, 3);
         bluScoreArea = new kRectangle(7, 7, 3, 3);
         
