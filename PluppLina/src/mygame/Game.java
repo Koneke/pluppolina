@@ -16,6 +16,7 @@ public class Game {
     public AssetManager assetManager;
     Node rootNode;
     Camera cam;
+    World w;
 
     DirectionalLight sun;
     
@@ -52,7 +53,7 @@ public class Game {
     public void Start() {        
         plupps = new ArrayList();
         Node levelNode = new Node();
-        World w = new World();
+        w = new World();
         w.Load(levelNode);
         levelNode.setLocalTranslation(0, 0, .5f);
         rootNode.attachChild(levelNode);
@@ -68,5 +69,11 @@ public class Game {
             new Vector3f(0,0,-1));
         
         sun.setDirection(new Vector3f(0f,-1f,-4f+t*.1f).normalizeLocal());
+        
+        if (w.timer.getLocalTranslation().z <= 20 ) {
+            w.timer.setLocalTranslation(0, 0, (w.timer.getLocalTranslation().z + tpf));
+        }
+        else 
+            w.timer.setLocalTranslation(new Vector3f(0,0,0));
     }
 }

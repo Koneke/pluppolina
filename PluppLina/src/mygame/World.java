@@ -15,6 +15,9 @@ import com.jme3.scene.Spatial;
  * @author Administratör
  */
 public class World {
+    
+    Spatial timer;
+    
     public void Load(Node rootNode) {
         //arena
         Material matArena = new Material(
@@ -102,7 +105,7 @@ public class World {
         );
         matTimer.getAdditionalRenderState().setBlendMode(BlendMode.Alpha);
 
-        Spatial timer = Game.game.assetManager.loadModel("Models/alpha_timer.j3o");
+        timer = Game.game.assetManager.loadModel("Models/alpha_timer.j3o");
         timer.setMaterial(matTimer);
         
         rootNode.attachChild(timer);
